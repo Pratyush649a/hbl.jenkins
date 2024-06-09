@@ -18,6 +18,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploy on container'
+                //sh 'docker stop $(docker ps -q) && docker system prune -a'
                 sh 'docker run -d -p 80:80 my-new-website'
             }
         }
