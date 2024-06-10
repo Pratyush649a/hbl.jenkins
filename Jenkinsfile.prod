@@ -2,6 +2,14 @@ pipeline {
     agent any
 
     stages {
+        stage('Repo SCan') {
+
+            steps {
+                echo 'Repository scan with Trivy'
+                sh 'trivy repo https://github.com/Pratyush649a/hbl.jenkins.git'
+            }
+        }
+
         stage('Code Fetch') {
             steps {
                 echo 'Code fetch from GitHub'
@@ -12,6 +20,14 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'docker build -t my-new-website .'
+            }
+        }
+
+        stage('Image Scan') {
+            
+            steps {
+                echo 'Docker image scanning with Trivy'
+                sh 'trivy image my-new-website'
             }
         }
 
